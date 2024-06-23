@@ -96,6 +96,7 @@ app.get("/random", (req, res) => {
   res.redirect("/pokemon?pokemon=" + randomPokemon);
 });
 
-app.listen(port, () => {
+app.listen("https://pokedex-fsye.onrender.com
+", () => {
   console.log(`App is listening on Port ${port}`);
 });
