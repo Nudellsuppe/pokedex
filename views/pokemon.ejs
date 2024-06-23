@@ -1,0 +1,247 @@
+<%- include('header.ejs') %>
+
+    <% if (!locals.errorMsg ) { %>
+
+
+
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-4 justify-content-center offset-md-2">
+                    <div>
+                        <h1>
+                            <%= pokemon.name %> Nr. <%= pokemon.id %>
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class=" container-fluid mt-5 me-5 mb-5">
+                <div class="row ">
+                    <div class="col-2"></div>
+                    <div class="col-4 rounded" id="<%= pokemon.types[0].type.name %>">
+                        <img src="<%= pokemon.img %>" class="img-fluid
+                    rounded " alt="...">
+                    </div>
+                    <div class="col-5 ms-5">
+
+                        <p class="card-text whitetext ">
+                            <%= pokemon.flavor_text %>
+                        </p>
+                        <div class="container rounded" id="<%= pokemon.types[0].type.name %>">
+                            <div class=" row justify-content-around ">
+                                <div class="col-5  rounded">
+                                    <p class="blackText">Height</p>
+                                    <p class="whitetext">
+                                        <%= pokemon.height /10 %> m
+                                    </p>
+                                </div>
+                                <div class="col-5 rounded">
+                                    <p class="blackText">Category</p>
+                                    <p class="whitetext">
+                                        <%= pokemon.genus %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class=" row justify-content-around ">
+                                <div class="col-5  rounded">
+                                    <p class="blackText">Weight</p>
+                                    <p class="whitetext">
+                                        <%= pokemon.weight /10 %> kg
+                                    </p>
+                                </div>
+                                <div class="col-5  rounded">
+                                    <p class="blackText">Ability</p>
+                                    <% pokemon.abilities.forEach(ability=> { %>
+                                        <span class=" whitetext rounded p-1 bg-primary me-1">
+                                            <%= ability.ability.name%>
+
+
+                                        </span>
+                                        <% }) %>
+
+                                </div>
+                            </div>
+                            <div class=" row justify-content-around ">
+                                <div class="col-5  rounded">
+                                    <p class="blackText">Habitat</p>
+                                    <p class="whitetext">
+                                        <% if (pokemon.habitat) { %>
+                                            <%= pokemon.habitat.name%>
+                                                <% } else { %>
+                                                    <p>n.a</p>
+                                                    <% } %>
+                                    </p>
+                                </div>
+                                <div class="col-5 rounded">
+                                    <p class="blackText">Egg groups</p>
+                                    <% pokemon.egg_groups.forEach(group=> { %>
+                                        <span class=" whitetext rounded p-1 me-1" id="<%= group.name %>">
+                                            <%= group.name%>
+                                        </span>
+                                        <% }) %>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container pt-3">
+                            <div class="row mt-1">
+                                <div class="col-4 rounded">
+                                    <p class="blackText">Type</p>
+                                    <% for( let index=0; index < pokemon.types.length; index++ ) { %>
+                                        <span id="<%= pokemon.types[index].type.name %>"
+                                            class="whitetext p-1 me-1 rounded text-center">
+                                            <%= pokemon.types[index].type.name %>
+                                        </span>
+                                        <% } %>
+
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-4 rounded">
+                                    <audio controls>
+                                        <source src="<%= pokemon.cry%>" type="audio/ogg">
+
+                                        Your browser does not support the audio element.
+                                    </audio>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="container-fluid mt-5 ms-1">
+                <div class="row ">
+
+                    <div class="col-3 ms-5 mt-3 ">
+                        <table class="blackText caption-top">
+                            <thead>
+
+                                <tr>
+                                    <th scope="row"></th>
+
+                                    <th scope="row"> stat</th>
+
+
+                                    <th scope="row">effort</th>
+
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <% pokemon.stats.forEach(stat=> { %>
+                                    <tr>
+
+
+                                        <th scope="col">
+                                            <%= stat.stat.name %>
+                                        <td scope="row">
+                                            <%= stat.base_stat %>
+                                        </td>
+                                        <td scope="row">
+                                            <%= stat.effort %>
+                                        </td>
+                                        </th>
+
+
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-8  ">
+                        <div class="table-responsive">
+                            <table class=" blackText ">
+
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Damage Class</th>
+                                        <th scope="col">Accuracy</th>
+                                        <th scope="col">PP</th>
+                                        <th scope="col">Power</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">LVL</th>
+                                        <th scope="col">Learned</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for( let index=0; index < pokemon.moves.length; index++ ) { %>
+
+
+
+
+
+                                        <tr class="" id="<%=  pokemon.movesData[index].data.type.name%>">
+
+
+                                            <th scope="row">
+                                                <%= pokemon.movesData[index].data.name %>
+                                            </th>
+                                            <td>
+                                                <%= pokemon.movesData[index].data.type.name %>
+                                            </td>
+                                            <td>
+                                                <%= pokemon.movesData[index].data.accuracy %>
+                                            </td>
+                                            <td>
+                                                <%= pokemon.movesData[index].data.pp %>
+                                            </td>
+                                            <td>
+                                                <%= pokemon.movesData[index].data.power %>
+                                            </td>
+                                            <td>
+                                                <% if (pokemon.movesData[index].data.flavor_text_entries[0] &&
+                                                    pokemon.movesData[index].data.flavor_text_entries[0].language.name==="en"
+                                                    ) { %>
+                                                    <%= pokemon.movesData[index].data.flavor_text_entries[0].flavor_text
+                                                        %>
+                                                        <% } else { %>
+                                                            n.a
+                                                            <% } %>
+
+                                            </td>
+                                            <td>
+                                                <%= pokemon.moves[index].version_group_details[0].level_learned_at %>
+                                            </td>
+                                            <td>
+                                                <%= pokemon.moves[index].version_group_details[0].
+                                                    move_learn_method.name %>
+                                            </td>
+
+                                        </tr>
+
+                                        <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <% } %>
+
+            <% if (locals.errorMsg ) { %>
+                <div class="error d-flex align-items-center justify-content-center ">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="whitetext">
+                                <%= errorMsg %>
+                                    <p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <% } %>
